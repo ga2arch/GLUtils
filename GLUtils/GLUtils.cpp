@@ -72,7 +72,7 @@ shaders GLUtils::compile_shaders_from_file(const std::string &vertex,
     return compile_shaders(v.str(), s.str());
 }
 
-bool GLUtils::link_shaders(GLuint& program, shaders& shaders) {
+bool GLUtils::link_shaders(shaders& shaders, GLuint& program) {
     auto vertex = std::get<0>(shaders);
     auto fragment = std::get<1>(shaders);
     

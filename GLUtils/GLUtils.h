@@ -37,7 +37,7 @@ public:
         compile_shaders_from_file(const std::string& vertex,
                                   const std::string& fragment);
     
-    static bool link_shaders(GLuint& program, shaders& shaders);
+    static bool link_shaders(shaders& shaders, GLuint& program);
     
 };
 
