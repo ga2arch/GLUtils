@@ -63,7 +63,7 @@ shaders GLUtils::compile_shaders_from_file(const std::string &vertex,
                                            const std::string &fragment) {
     
     std::ifstream vertex_source(vertex, std::ios::in);
-    std::ifstream fragment_source(vertex, std::ios::in);
+    std::ifstream fragment_source(fragment, std::ios::in);
     std::stringstream v, s;
 
     v << vertex_source.rdbuf();
