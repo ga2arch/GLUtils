@@ -18,7 +18,7 @@
 #include "gl/glew.h"
 #include "GLFW/glfw3.h"
 
-using shaders = std::pair<GLuint, GLuint>;
+using Shaders = std::pair<GLuint, GLuint>;
 
 class GLUtils {
     
@@ -29,15 +29,15 @@ public:
                               int h,
                               GLFWwindow*& win);
     
-    static shaders
+    static Shaders
         compile_shaders(const std::string& vertex,
                         const std::string& fragment);
     
-    static shaders
+    static Shaders
         compile_shaders_from_file(const std::string& vertex,
                                   const std::string& fragment);
     
-    static bool link_shaders(shaders& shaders, GLuint& program);
+    static bool link_shaders(Shaders& shaders, GLuint& program);
     
     static GLuint make_vbo(GLenum target,
                            const float* buffer_data,

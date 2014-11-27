@@ -44,7 +44,7 @@ bool GLUtils::create_window(const char* title, int w, int h, GLFWwindow*& win) {
     return true;
 }
 
-shaders GLUtils::compile_shaders(const std::string &vertex,
+Shaders GLUtils::compile_shaders(const std::string &vertex,
                                  const std::string &fragment) {
     
     const auto vertex_source = vertex.c_str();
@@ -61,7 +61,7 @@ shaders GLUtils::compile_shaders(const std::string &vertex,
     return std::make_pair(vertex_shader, fragment_shader);
 }
 
-shaders GLUtils::compile_shaders_from_file(const std::string &vertex,
+Shaders GLUtils::compile_shaders_from_file(const std::string &vertex,
                                            const std::string &fragment) {
     
     std::ifstream vertex_source(vertex, std::ios::in);
@@ -74,7 +74,7 @@ shaders GLUtils::compile_shaders_from_file(const std::string &vertex,
     return compile_shaders(v.str(), s.str());
 }
 
-bool GLUtils::link_shaders(shaders& shaders, GLuint& program) {
+bool GLUtils::link_shaders(Shaders& shaders, GLuint& program) {
     auto vertex = std::get<0>(shaders);
     auto fragment = std::get<1>(shaders);
     
