@@ -18,8 +18,10 @@ bool GLUtils::create_window(const char* title, int w, int h, GLFWwindow*& win) {
         return false;
     }
     
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     
     win = glfwCreateWindow(w, h, title, nullptr, nullptr);
     
@@ -120,4 +122,22 @@ bool GLUtils::link_shaders(shaders& shaders, GLuint& program) {
     glDeleteShader(fragment);
     
     return true;
+}
+
+GLuint GLUtils::make_vbo(GLenum target, const float* buffer_data, GLsizei buffer_size) {
+    GLuint buffer;
+    glGenBuffers(1, &buffer);
+    glBindBuffer(target, buffer);
+    glBufferData(target, buffer_size, buffer_data, GL_STATIC_DRAW);
+    return buffer;
+}
+
+GLuint GLUtils::make_vao(GLenum target, GLuint vbo, int size, int stride) {
+    GLuint vao;
+    glGenVertexArrays (1, &vao);
+    glBindVertexArray (vao);
+    glBindBuffer (target, vbo);
+    glVertexAttribPointer (0, size, GL_FLOAT, GL_FALSE, stride, NULL);
+    
+    return vao;
 }
