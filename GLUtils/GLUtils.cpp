@@ -50,13 +50,8 @@ Shaders GLUtils::compile_shaders(const std::string &vertex,
     const auto vertex_source = vertex.c_str();
     const auto fragment_source = fragment.c_str();
     
-    auto vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertex_shader, 1, &vertex_source, nullptr);
-    glCompileShader(vertex_shader);
-    
-    auto fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragment_shader, 1, &fragment_source, nullptr);
-    glCompileShader(fragment_shader);
+    auto vertex_shader = compile_shader(vertex_source, GL_VERTEX_SHADER);
+    auto fragment_shader = compile_shader(fragment_source, GL_FRAGMENT_SHADER);
     
     return std::make_pair(vertex_shader, fragment_shader);
 }
@@ -72,6 +67,29 @@ Shaders GLUtils::compile_shaders_from_file(const std::string &vertex,
     s << fragment_source.rdbuf();
     
     return compile_shaders(v.str(), s.str());
+}
+
+GLuint GLUtils::compile_shader(const std::string& source,
+                               GLenum type) {
+    
+    const auto c_source = source.c_str();
+
+    auto shader = glCreateShader(type);
+    glShaderSource(shader, 1, &c_source, nullptr);
+    glCompileShader(shader);
+    
+    return shader;
+}
+
+GLuint GLUtils::compile_shader_from_file(const std::string& source,
+                                          GLenum type) {
+    
+    std::ifstream shader_source(source, std::ios::in);
+    std::stringstream s;
+
+    s << shader_source.rdbuf();
+    
+    return compile_shader(s.str(), type);
 }
 
 bool GLUtils::link_shaders(Shaders& shaders, GLuint& program) {

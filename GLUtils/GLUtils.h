@@ -29,6 +29,12 @@ public:
                               int h,
                               GLFWwindow*& win);
     
+    static GLuint compile_shader(const std::string& source,
+                                 GLenum type);
+    
+    static GLuint compile_shader_from_file(const std::string& source,
+                                           GLenum type);
+    
     static Shaders
         compile_shaders(const std::string& vertex,
                         const std::string& fragment);
