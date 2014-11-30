@@ -177,6 +177,12 @@ GLuint GLUtils::make_ibo(const GLushort* indices,
 void GLUtils::bind_vao(GLuint attrib,
                        int size,
                        int stride,
-                       const GLfloat* offset) {
-    glVertexAttribPointer (attrib, size, GL_FLOAT, GL_FALSE, stride, offset);
+                       int offset) {
+    
+    glVertexAttribPointer (attrib,
+                           size,
+                           GL_FLOAT,
+                           GL_FALSE,
+                           stride,
+                           reinterpret_cast<void*>(offset));
 }

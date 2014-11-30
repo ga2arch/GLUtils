@@ -58,7 +58,7 @@ public:
     static void bind_vao(GLuint attrib,
                          int size,
                          int stride,
-                         const GLfloat* offset = nullptr);
+                         int offset = 0);
 };
 
 #endif /* defined(__GLUtils__GLUtils__) */
