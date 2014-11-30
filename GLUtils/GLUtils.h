@@ -50,9 +50,14 @@ public:
                            GLsizei buffer_size);
     
     static GLuint make_vao(GLenum target,
-                           GLuint vbo,
-                           int size,
-                           int stride);
+                           GLuint vbo);
+    
+    static GLuint make_ibo(const GLushort* indices,
+                           GLsizei indices_size);
+    
+    static void bind_vao(GLuint attrib,
+                         int size,
+                         int stride);
 
 };
 

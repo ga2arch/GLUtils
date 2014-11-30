@@ -142,7 +142,9 @@ bool GLUtils::link_shaders(Shaders& shaders, GLuint& program) {
     return true;
 }
 
-GLuint GLUtils::make_vbo(GLenum target, const float* buffer_data, GLsizei buffer_size) {
+GLuint GLUtils::make_vbo(GLenum target,
+                         const float* buffer_data,
+                         GLsizei buffer_size) {
     GLuint buffer;
     glGenBuffers(1, &buffer);
     glBindBuffer(target, buffer);
@@ -150,12 +152,28 @@ GLuint GLUtils::make_vbo(GLenum target, const float* buffer_data, GLsizei buffer
     return buffer;
 }
 
-GLuint GLUtils::make_vao(GLenum target, GLuint vbo, int size, int stride) {
+GLuint GLUtils::make_vao(GLenum target,
+                         GLuint vbo) {
     GLuint vao;
     glGenVertexArrays (1, &vao);
     glBindVertexArray (vao);
     glBindBuffer (target, vbo);
-    glVertexAttribPointer (0, size, GL_FLOAT, GL_FALSE, stride, NULL);
     
     return vao;
+}
+
+GLuint GLUtils::make_ibo(const GLushort* indices,
+                         GLsizei indices_size) {
+    GLuint ibo;
+    glGenBuffers(1, &ibo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+                 indices_size,
+                 indices, GL_STATIC_DRAW);
+
+    return ibo;
+}
+
+void GLUtils::bind_vao(GLuint attrib, int size, int stride) {
+    glVertexAttribPointer (attrib, size, GL_FLOAT, GL_FALSE, stride, NULL);
 }
