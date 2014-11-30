@@ -46,7 +46,7 @@ public:
     static bool link_shaders(Shaders& shaders, GLuint& program);
     
     static GLuint make_vbo(GLenum target,
-                           const float* buffer_data,
+                           const GLfloat* buffer_data,
                            GLsizei buffer_size);
     
     static GLuint make_vao(GLenum target,
@@ -57,8 +57,8 @@ public:
     
     static void bind_vao(GLuint attrib,
                          int size,
-                         int stride);
-
+                         int stride,
+                         const GLfloat* offset = nullptr);
 };
 
 #endif /* defined(__GLUtils__GLUtils__) */
