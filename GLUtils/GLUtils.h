@@ -17,6 +17,7 @@
 
 #include "gl/glew.h"
 #include "GLFW/glfw3.h"
+#include "lodepng.h"
 
 using Shaders = std::pair<GLuint, GLuint>;
 
@@ -59,6 +60,8 @@ public:
                          int size,
                          int stride,
                          int offset = 0);
+    
+    static GLuint load_texture(const std::string& filename);
 };
 
 #endif /* defined(__GLUtils__GLUtils__) */

@@ -186,3 +186,28 @@ void GLUtils::bind_vao(GLuint attrib,
                            stride,
                            reinterpret_cast<void*>(offset));
 }
+
+GLuint GLUtils::load_texture(const std::string& filename) {
+    std::vector<unsigned char> image;
+    unsigned width, height;
+    unsigned error = lodepng::decode(image, width, height, filename);
+    
+    if (error) {
+        throw std::runtime_error(lodepng_error_text(error));
+    }
+    
+    GLuint texture;
+    glGenTextures(1, &texture);
+    
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
+                 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
+    
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //GL_NEAREST = no smoothing
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  
+    return texture;
+}
