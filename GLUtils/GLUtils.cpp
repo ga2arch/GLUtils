@@ -61,12 +61,12 @@ Shaders GLUtils::compile_shaders_from_file(const std::string &vertex,
     
     std::ifstream vertex_source(vertex, std::ios::in);
     std::ifstream fragment_source(fragment, std::ios::in);
-    std::stringstream v, s;
+    std::stringstream v, f;
 
     v << vertex_source.rdbuf();
-    s << fragment_source.rdbuf();
+    f << fragment_source.rdbuf();
     
-    return compile_shaders(v.str(), s.str());
+    return compile_shaders(v.str(), f.str());
 }
 
 GLuint GLUtils::compile_shader(const std::string& source,
@@ -93,8 +93,8 @@ GLuint GLUtils::compile_shader_from_file(const std::string& source,
 }
 
 bool GLUtils::link_shaders(Shaders& shaders, GLuint& program) {
-    auto vertex = std::get<0>(shaders);
-    auto fragment = std::get<1>(shaders);
+    auto vertex = shaders.first;
+    auto fragment = shaders.second;
     
     program = glCreateProgram();
     glAttachShader(program, vertex);
