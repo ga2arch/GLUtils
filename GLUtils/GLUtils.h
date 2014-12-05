@@ -44,7 +44,7 @@ public:
         compile_shaders_from_file(const std::string& vertex,
                                   const std::string& fragment);
     
-    static bool link_shaders(Shaders& shaders, GLuint& program);
+    static bool link_shaders(const Shaders& shaders, const GLuint& program);
     
     static GLuint make_vbo(GLenum target,
                            const GLfloat* buffer_data,
